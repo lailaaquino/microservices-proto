@@ -2,10 +2,11 @@
 set GITHUB_USERNAME=lailaaquino
 set GITHUB_EMAIL=lailaaquino8@gmail.com 
 
-set SERVICE_NAME=order
+set SERVICE_NAME=payment
 set RELEASE_VERSION=v1.2.3
 
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 set PATH=%PATH%;%GOPATH%\bin
 
 echo Generating Go source code
@@ -22,8 +23,8 @@ dir .\golang\%SERVICE_NAME%
 
 cd golang\%SERVICE_NAME%
 
-go mod init github.com/%GITHUB_USERNAME%/microservices-proto/golang/%SERVICE_NAME% || ver >nul
-go mod tidy || ver >nul
+if not exist go.mod go mod init github.com/%GITHUB_USERNAME%/microservices-proto/golang/%SERVICE_NAME%
+go mod tidy
 
 REM cd ../../
 REM git config --global user.email %GITHUB_EMAIL%
